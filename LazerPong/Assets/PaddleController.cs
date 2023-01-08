@@ -13,7 +13,7 @@ public class PaddleController : MonoBehaviour
     void Update()
     {
         distance = PlayerTransform.position.x + transform.position.x;
-        Debug.Log(Mathf.Abs(distance));
+        //Debug.Log(Mathf.Abs(distance));
         if ( Mathf.Abs(distance) > 20 && !isTouchedPaddle)
         {
             
