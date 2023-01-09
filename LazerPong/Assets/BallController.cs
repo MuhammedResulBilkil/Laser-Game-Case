@@ -7,10 +7,12 @@ public class BallController : MonoBehaviour
 {
     Rigidbody rb;
     public float bounceForce;
+    SphereCollider collider;
    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        collider = GetComponent<SphereCollider>();
     }
     void Start()
     {
@@ -42,7 +44,23 @@ public class BallController : MonoBehaviour
         rb.AddForce(randomDirection * bounceForce, ForceMode.Impulse);
     }
 
-   
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "playerArea")
+        {
+            IgnoreCollision(collision.gameObject);
+        }
 
+        if (collision.gameObject.tag == "Player")
+        {
+            IgnoreCollision(collision.gameObject);
+        }
+    }
+
+    void IgnoreCollision(GameObject anotherObject)
+    {
+        BoxCollider colliderOfOtherObject = anotherObject.GetComponent<BoxCollider>();
+        Physics.IgnoreCollision(colliderOfOtherObject, collider);
+    }
 
 }

@@ -5,13 +5,24 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
+    #region Serialize
+    [SerializeField] Transform laserTransform;
+    #endregion
+    #region References
     private Vector3 position;
     private float width;
     private float height;
+    private float timer;
+    #endregion
+    //hepsini böyle ayýr . private lara _ ekle sonuna.
     Rigidbody rb;
     public float speed;
     public float jumpForce;
     bool isGrounded = false;
+   
+    private const string LASERTAG = "laser";
+
+    //hepsini böyle tanýmla
     private void Awake()
     {
         if (instance == null)
@@ -21,26 +32,14 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         width = (float)Screen.width / 2.0f;
         height = (float)Screen.height / 2.0f;
+        timer = 0;
     }
 
 
     private void Update()
     {
-        /* {
-             Touch touch = Input.GetTouch(0);
-
-             // Move the cube if the screen has the finger moving.
-             if (touch.phase == TouchPhase.Moved)
-             {
-                 Vector2 pos = touch.position;
-                 pos.x = (pos.x - width) / width;
-                 pos.y = (pos.y - height) / height;
-                 position = new Vector3(-pos.x, pos.y, 0.0f);
-
-                 // Position the cube.
-                 transform.position = position;
-             }
-         }*/
+        
+        timer += Time.deltaTime;
         float mH = Input.GetAxis("Horizontal");
         float mV = Input.GetAxis("Vertical");
         rb.velocity = new Vector3(mH * speed, rb.velocity.y, mV * speed);
@@ -51,20 +50,27 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
 
+      
+
+        if (Mathf.Abs(laserTransform.position.z - transform.position.z) < 1f && timer >= 1f)
+        {
+            UIManager.instance.AddScore();
+            timer = 0;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-       if(other.gameObject.tag=="laser")
+       if(other.gameObject.CompareTag(LASERTAG))
         {
-            Debug.Log("died");
+            UIManager.instance.LoseGame();
         }
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag=="platform")
+        if(collision.gameObject.tag=="playerArea")
         {
             isGrounded = true;
         }
