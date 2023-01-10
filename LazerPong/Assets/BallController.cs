@@ -6,7 +6,8 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     public static BallController instance;
-    public float forceSpeed;
+    public float startingForceSpeed;
+    public int currentForceSpeed;
     #region References
     private Rigidbody rb_;
     
@@ -25,21 +26,21 @@ public class BallController : MonoBehaviour
     }
     void Start()
     {
-        AddStartingForce();
+        AddForce();
     }
 
   
 
-    private void AddStartingForce()
+    public void AddForce()
     {
         Vector3 direction = SetRandomDirectionForForce();
-        rb_.AddForce(direction * forceSpeed, ForceMode.Impulse);
+        rb_.AddForce(direction * startingForceSpeed, ForceMode.Impulse);
     }
 
-    public void AddForce(int speed)
-    {
-        rb_.AddForce(transform.forward * speed, ForceMode.Impulse);
-    }
+  //  public void AddForce(int speed)
+   // {
+  //     rb_.AddForce(transform.forward * speed, ForceMode.Impulse);
+   // }
     
     private Vector3 SetRandomDirectionForForce()
     {
@@ -70,6 +71,11 @@ public class BallController : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag(Constants.PLAYER_TAG))
+        {
+            IgnoreCollisionMethod(collision.gameObject);
+        }
+
+        if(collision.gameObject.CompareTag(Constants.COIN_TAG))
         {
             IgnoreCollisionMethod(collision.gameObject);
         }

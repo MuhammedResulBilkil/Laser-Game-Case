@@ -35,12 +35,10 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void SetState(GameStates newState)
-    {
-        state = newState;
-    }
+    public void SetState(GameStates newState) => state = newState;
+   
 
-    public GameStates GetState()
+    public GameStates GetState() 
     {
         return state;
     }

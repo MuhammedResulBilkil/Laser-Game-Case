@@ -55,23 +55,23 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        AddMethodToDelegate(PlayerMovement);
-        AddMethodToDelegate(PlayerJump);
-        AddMethodToDelegate(isPlayerJumpOverTheLaser);
+        AddMethodToPlayerAction(PlayerMovement);
+        AddMethodToPlayerAction(PlayerJump);
+        AddMethodToPlayerAction(isPlayerJumpOverTheLaser);
     }
 
     private void OnDisable()
     {
-        RemoveMethodFromDelegate(PlayerMovement);
-        RemoveMethodFromDelegate(PlayerJump);
-        RemoveMethodFromDelegate(isPlayerJumpOverTheLaser);
+        RemoveMethodFromPlayerAction(PlayerMovement);
+        RemoveMethodFromPlayerAction(PlayerJump);
+        RemoveMethodFromPlayerAction(isPlayerJumpOverTheLaser);
     }
-    public void AddMethodToDelegate(PlayerActions method)
+    public void AddMethodToPlayerAction(PlayerActions method)
     {
         playerActions += method;
     }
 
-    public void RemoveMethodFromDelegate(PlayerActions method)
+    public void RemoveMethodFromPlayerAction(PlayerActions method)
     {
         playerActions -= method;
     }

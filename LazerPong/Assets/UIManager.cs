@@ -53,12 +53,12 @@ public class UIManager : MonoBehaviour
 
     public void AddScore()
     {
-        AnimateScore();
+      
         currentScore += scoreValue;
-        if (currentScore ==  maxScore_)
-        {
-            NextLevel();
-        }
+     //   if (currentScore ==  maxScore_)
+    //    {
+    //       NextLevel();
+     //   }
         if (currentScore > highScore)
         {
             highScore = currentScore;
@@ -68,36 +68,30 @@ public class UIManager : MonoBehaviour
 
         SaveHighScore();
         UpdateScoreText();
-        
+        AnimateScore();
     }
 
     public void AnimateScore()
     {
-       
-       // Vector3 position = EffectForScore.transform.position;
-       // Vector3 targetPos = position + Vector3.up*7;
-        //EffectForScore.transform.position = Vector3.Lerp(position, targetPos , 2);
 
+      
+        SetPanelActiveOrDeactive(EffectForScore, true);
+        StartCoroutine(WaitAndDeactivateEffect());
 
-
-        
-
-        StartCoroutine(chr());
-        
 
     }
 
-    private IEnumerator chr()
+    private IEnumerator WaitAndDeactivateEffect()
     {
-        yield return new WaitForSeconds(1);
-     //   EffectForScore.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        SetPanelActiveOrDeactive(EffectForScore, false);
     }
 
     private void NextLevel()
     {
         
         //BallController.instance.AddForce(5);
-        maxScore_ += 20;
+       // maxScore_ += 20;
     }
 
     public void UpdateScoreText()
