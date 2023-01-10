@@ -7,9 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool isGameActive = false;
-    //public GameState state;
-
-    //public static event Action<GameState> OnGameStateChanged;
+   
 
     private void Awake()
     {
@@ -19,52 +17,59 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public GameStates state;
+
+    public enum GameStates
     {
-       // UpdateGameState(GameState.GameActive);
+       
+        STARTED,
+        OVER
     }
 
-   /* public void UpdateGameState(GameState newState)
+
+
+    public void SetState(GameStates newState)
     {
         state = newState;
+    }
 
-        switch(newState)
+    public GameStates GetState()
+    {
+        return state;
+    }
+
+  
+
+    public void UpdateGameState()
+    {
+        switch (GetState())
         {
-            case GameState.GameActive:
-                HandleGameActive();
+           
+            case GameStates.STARTED:
+                Time.timeScale = 1;
                 break;
-            case GameState.NextLevel:
-                break;
-            case GameState.Lose:
+            case GameStates.OVER:
+                Time.timeScale = 0;
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+                //bla bla
+                break;
         }
-
-        OnGameStateChanged?.Invoke(newState);
     }
-
-    private void HandleGameActive()
-    {
-        throw new NotImplementedException();
-    }
-
-    public enum GameState
-    {
-        GameActive,
-        NextLevel,
-        Lose
-    }*/
 
     private void Update()
     {
         if (isGameActive)
         {
-            Time.timeScale = 1;
+            SetState(GameStates.STARTED);
         }
         else
         {
-            Time.timeScale = 0;
+            SetState(GameStates.OVER);
         }
+
+        UpdateGameState();
     }
+
+   
 }

@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class PaddleController : MonoBehaviour
 {
-    [SerializeField] Transform PlayerTransform;
-    public float waitDuration = 2f;
-    float distance;
-    float zPos;
-    bool isTouchedPaddle=false;
- 
+    #region Serialize
+    [SerializeField] Transform BallTransform;
+    [SerializeField] float waitDuration = 2f;
+    #endregion
+
+    #region References
+    private float distance;
+    private float zPos;
+    private bool isTouchedPaddle=false;
+    #endregion
+
+
     void Update()
     {
-        distance = PlayerTransform.position.x + transform.position.x;
+       distance = BallTransform.position.x + transform.position.x;
      
        if ( Mathf.Abs(distance) > 20 && !isTouchedPaddle)
          {
-
-            // transform.position = new Vector3(transform.position.x, transform.position.y,  Mathf.Lerp(zPos, PlayerTransform.position.z, 1));         
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x,transform.position.y,PlayerTransform.position.z), 1);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x,transform.position.y, BallTransform.position.z), 1);
         }
 
       
@@ -26,16 +30,16 @@ public class PaddleController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag=="ball")
+        if(collision.gameObject.CompareTag(Constants.BALL_TAG))
         {
             isTouchedPaddle = true;
-            StartCoroutine(c());
+            StartCoroutine(WaitAndStopThePaddleMovement());
         }
     }
 
     
-    //exit => true
-    IEnumerator c()
+   
+    IEnumerator WaitAndStopThePaddleMovement()
     {
         yield return new WaitForSeconds(waitDuration);
         isTouchedPaddle = false;

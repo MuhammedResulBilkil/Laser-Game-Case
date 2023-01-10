@@ -5,14 +5,22 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    Rigidbody rb;
-    public float bounceForce;
-    SphereCollider collider;
-   
+    public static BallController instance;
+    public float forceSpeed;
+    #region References
+    private Rigidbody rb;   
+    private SphereCollider colliderOfBall;
+    #endregion
+
+ 
     private void Awake()
     {
+        if(instance ==null)
+        {
+            instance = this;
+        }
         rb = GetComponent<Rigidbody>();
-        collider = GetComponent<SphereCollider>();
+        colliderOfBall = GetComponent<SphereCollider>();
     }
     void Start()
     {
@@ -23,7 +31,17 @@ public class BallController : MonoBehaviour
 
     private void AddStartingForce()
     {
+        Vector3 direction = SetRandomDirectionForForce();
+        rb.AddForce(direction * forceSpeed, ForceMode.Impulse);
+    }
 
+    public void AddForce()
+    {
+        rb.AddForce(transform.forward * forceSpeed, ForceMode.Impulse);
+    }
+    
+    private Vector3 SetRandomDirectionForForce()
+    {
         float randomX = UnityEngine.Random.Range(-1, 1);
         float randomZ = UnityEngine.Random.Range(-1, 1);
         if (randomX >= 0)
@@ -35,32 +53,31 @@ public class BallController : MonoBehaviour
             randomX = -1;
         }
 
-        if(Mathf.Abs(randomZ) <0.1f)
+        if (Mathf.Abs(randomZ) < 0.1f)
         {
             randomZ = 1;
         }
-        Vector3 randomDirection = new Vector3(randomX,0, randomZ).normalized;
-
-        rb.AddForce(randomDirection * bounceForce, ForceMode.Impulse);
+        Vector3 randomDirection = new Vector3(randomX, 0, randomZ).normalized;
+        return randomDirection;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "playerArea")
+        if (collision.gameObject.CompareTag(Constants.PLAYER_AREA_TAG))
         {
-            IgnoreCollision(collision.gameObject);
+            IgnoreCollisionMethod(collision.gameObject);
         }
 
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag(Constants.PLAYER_TAG))
         {
-            IgnoreCollision(collision.gameObject);
+            IgnoreCollisionMethod(collision.gameObject);
         }
     }
 
-    void IgnoreCollision(GameObject anotherObject)
+    void IgnoreCollisionMethod(GameObject anotherObject)
     {
         BoxCollider colliderOfOtherObject = anotherObject.GetComponent<BoxCollider>();
-        Physics.IgnoreCollision(colliderOfOtherObject, collider);
+        Physics.IgnoreCollision(colliderOfOtherObject, colliderOfBall);
     }
 
 }
