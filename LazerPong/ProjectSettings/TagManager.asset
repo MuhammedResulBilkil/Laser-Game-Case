@@ -9,6 +9,7 @@ TagManager:
   - ball
   - platform
   - playerArea
+  - coin
   layers:
   - Default
   - TransparentFX

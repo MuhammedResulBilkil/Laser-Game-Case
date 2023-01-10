@@ -16,13 +16,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject GameOverPanel;
     [SerializeField] private TMP_Text currentScoreText;
     [SerializeField] private TMP_Text highScoreText;
+    [SerializeField] private GameObject EffectForScore;
     [SerializeField] private int currentScore ;
     [SerializeField] private int highScore;
     [SerializeField] private int scoreValue ;
     #endregion
 
-    private GameObject panel;
-    private int maxScore=50;
+   
+    private int maxScore_=20;
 
 
     private void Awake()
@@ -36,6 +37,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         LoadHighScore();
+        UpdateHighScoreText();
     }
 
     public void TapToStartButton()
@@ -51,8 +53,9 @@ public class UIManager : MonoBehaviour
 
     public void AddScore()
     {
+        AnimateScore();
         currentScore += scoreValue;
-        if (currentScore ==  maxScore)
+        if (currentScore ==  maxScore_)
         {
             NextLevel();
         }
@@ -68,11 +71,33 @@ public class UIManager : MonoBehaviour
         
     }
 
+    public void AnimateScore()
+    {
+       
+       // Vector3 position = EffectForScore.transform.position;
+       // Vector3 targetPos = position + Vector3.up*7;
+        //EffectForScore.transform.position = Vector3.Lerp(position, targetPos , 2);
+
+
+
+        
+
+        StartCoroutine(chr());
+        
+
+    }
+
+    private IEnumerator chr()
+    {
+        yield return new WaitForSeconds(1);
+     //   EffectForScore.SetActive(false);
+    }
+
     private void NextLevel()
     {
-        BallController.instance.forceSpeed += 1;
-      //  BallController.instance.AddForce();
-      //  maxScore += 50;
+        
+        //BallController.instance.AddForce(5);
+        maxScore_ += 20;
     }
 
     public void UpdateScoreText()

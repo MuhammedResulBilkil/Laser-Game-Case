@@ -10,17 +10,17 @@ public class PaddleController : MonoBehaviour
     #endregion
 
     #region References
-    private float distance;
-    private float zPos;
+    private float distance_;
+    
     private bool isTouchedPaddle=false;
     #endregion
 
 
     void Update()
     {
-       distance = BallTransform.position.x + transform.position.x;
+       distance_ = BallTransform.position.x + transform.position.x;
      
-       if ( Mathf.Abs(distance) > 20 && !isTouchedPaddle)
+       if ( Mathf.Abs(distance_) > 20 && !isTouchedPaddle)
          {
             transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x,transform.position.y, BallTransform.position.z), 1);
         }

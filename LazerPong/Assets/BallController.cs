@@ -8,8 +8,9 @@ public class BallController : MonoBehaviour
     public static BallController instance;
     public float forceSpeed;
     #region References
-    private Rigidbody rb;   
-    private SphereCollider colliderOfBall;
+    private Rigidbody rb_;
+    
+    private SphereCollider colliderOfBall_;
     #endregion
 
  
@@ -19,8 +20,8 @@ public class BallController : MonoBehaviour
         {
             instance = this;
         }
-        rb = GetComponent<Rigidbody>();
-        colliderOfBall = GetComponent<SphereCollider>();
+        rb_ = GetComponent<Rigidbody>();
+        colliderOfBall_ = GetComponent<SphereCollider>();
     }
     void Start()
     {
@@ -32,12 +33,12 @@ public class BallController : MonoBehaviour
     private void AddStartingForce()
     {
         Vector3 direction = SetRandomDirectionForForce();
-        rb.AddForce(direction * forceSpeed, ForceMode.Impulse);
+        rb_.AddForce(direction * forceSpeed, ForceMode.Impulse);
     }
 
-    public void AddForce()
+    public void AddForce(int speed)
     {
-        rb.AddForce(transform.forward * forceSpeed, ForceMode.Impulse);
+        rb_.AddForce(transform.forward * speed, ForceMode.Impulse);
     }
     
     private Vector3 SetRandomDirectionForForce()
@@ -77,7 +78,7 @@ public class BallController : MonoBehaviour
     void IgnoreCollisionMethod(GameObject anotherObject)
     {
         BoxCollider colliderOfOtherObject = anotherObject.GetComponent<BoxCollider>();
-        Physics.IgnoreCollision(colliderOfOtherObject, colliderOfBall);
+        Physics.IgnoreCollision(colliderOfOtherObject, colliderOfBall_);
     }
 
 }

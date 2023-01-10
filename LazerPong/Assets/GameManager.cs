@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool isGameActive = false;
-   
+    public GameStates state;
 
     private void Awake()
     {
@@ -15,9 +15,16 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+
+
     }
 
-    public GameStates state;
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
+    }
+
+   
 
     public enum GameStates
     {

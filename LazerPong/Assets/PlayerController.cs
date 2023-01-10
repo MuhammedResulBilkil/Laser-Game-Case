@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +10,13 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     #region Serialize
     [SerializeField] Transform laserTransform;
+    
     #endregion
     #region References
+    //private float firstYPosition_;
     private float timer_;
     private Rigidbody rb_;
+   
     private bool isGrounded = false;
     #endregion
 
@@ -28,6 +32,7 @@ public class PlayerController : MonoBehaviour
         }
         rb_ = GetComponent<Rigidbody>();
      
+        //firstYPosition_ = transform.position.y;
         timer_ = 0;
     }
 
@@ -75,6 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         float mH = Input.GetAxis(Constants.HORIZONTAL);
         float mV = Input.GetAxis(Constants.VERTICAL);
+      
         rb_.velocity = new Vector3(mH * speed, rb_.velocity.y, mV * speed);
         float xPos = transform.position.x;
         float zPos = transform.position.z;
@@ -92,12 +98,14 @@ public class PlayerController : MonoBehaviour
 
        
     }
-    void isPlayerJumpOverTheLaser()
+    private void isPlayerJumpOverTheLaser()
     {
         timer_ += Time.deltaTime;
-        if (Mathf.Abs(laserTransform.position.z - transform.position.z) < 1f && timer_ >= 1f)
+        if (Mathf.Abs(laserTransform.position.z - transform.position.z) < 1f && !isGrounded  && timer_ >= 1f)
         {
             UIManager.instance.AddScore();
+            
+           
             timer_ = 0;
         }
     }
@@ -109,14 +117,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    GameObject Coin;
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag(Constants.PLAYER_AREA_TAG))
         {
             isGrounded = true;
         }
+
+        if (collision.gameObject.CompareTag(Constants.COIN_TAG))
+        {
+            
+            UIManager.instance.AddScore();
+            Coin = collision.gameObject;
+            Coin.SetActive(false);
+            StartCoroutine(WaitAndActivateCoin());
+        }
     }
 
+    private IEnumerator WaitAndActivateCoin()
+    {
+        float waitDuration = 3f;
+        yield return new WaitForSeconds(waitDuration);
+        float randomXPos = UnityEngine.Random.Range(63, 71);
+        float randomYPos = UnityEngine.Random.Range(1, 3);
+        float randomZPos = UnityEngine.Random.Range(-15, -1);
+        Coin.transform.position = new Vector3(randomXPos, randomYPos, randomZPos );
+        Coin.SetActive(true);
 
+
+    }
 }
