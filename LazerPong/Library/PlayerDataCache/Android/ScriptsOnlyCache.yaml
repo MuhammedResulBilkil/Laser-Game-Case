@@ -4,10 +4,14 @@ ScriptsOnlyBuild:
     - BallController
     - Constants
     - GameManager
-    - LaserController
     - PaddleController
     - PlayerController
     - UIManager
+    DOTween.dll:
+    - DG.Tweening.Core.DOTweenSettings
+    Unity.Recorder.Editor.dll:
+    - UnityEditor.Recorder.MovieRecorderEditor
+    - UnityEditor.Recorder.MovieRecorderSettings
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro.dll:
@@ -37,6 +41,9 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
   serializedClasses:
+    DOTween:
+    - DG.Tweening.Core.DOTweenSettings/ModulesSetup
+    - DG.Tweening.Core.DOTweenSettings/SafeModeOptions
     Unity.TextMeshPro:
     - TMPro.FaceInfo_Legacy
     - TMPro.FontAssetCreationSettings
@@ -69,6 +76,9 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Navigation
     - UnityEngine.UI.SpriteState
   methodsToPreserve:
+  - assembly: Assembly-CSharp
+    fullTypeName: UIManager
+    methodName: Jump
   - assembly: Assembly-CSharp
     fullTypeName: UIManager
     methodName: RestartGame
@@ -110,45 +120,45 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1552}
+      Script: {instanceID: 1576}
     - Class: 114
-      Script: {instanceID: 2214}
+      Script: {instanceID: 2256}
     - Class: 114
-      Script: {instanceID: 2344}
+      Script: {instanceID: 2390}
     - Class: 114
-      Script: {instanceID: 2650}
+      Script: {instanceID: 2708}
     - Class: 114
-      Script: {instanceID: 2808}
+      Script: {instanceID: 2942}
     - Class: 114
-      Script: {instanceID: 2880}
+      Script: {instanceID: 3206}
     - Class: 114
-      Script: {instanceID: 3136}
+      Script: {instanceID: 3252}
     - Class: 114
-      Script: {instanceID: 3182}
+      Script: {instanceID: 3614}
     - Class: 114
-      Script: {instanceID: 3990}
-    - Class: 114
-      Script: {instanceID: 4140}
+      Script: {instanceID: 4092}
     - Class: 114
       Script: {instanceID: 4252}
     - Class: 114
-      Script: {instanceID: 4530}
+      Script: {instanceID: 4370}
     - Class: 114
-      Script: {instanceID: 5304}
+      Script: {instanceID: 4664}
     - Class: 114
-      Script: {instanceID: 5912}
+      Script: {instanceID: 5464}
     - Class: 114
-      Script: {instanceID: 5986}
+      Script: {instanceID: 6100}
     - Class: 114
-      Script: {instanceID: 6068}
+      Script: {instanceID: 6180}
     - Class: 114
-      Script: {instanceID: 6410}
+      Script: {instanceID: 6262}
     - Class: 114
-      Script: {instanceID: 7224}
+      Script: {instanceID: 6628}
     - Class: 114
-      Script: {instanceID: 7392}
+      Script: {instanceID: 7476}
     - Class: 114
-      Script: {instanceID: 7498}
+      Script: {instanceID: 7658}
+    - Class: 114
+      Script: {instanceID: 7768}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -350,12 +360,6 @@ ScriptsOnlyBuild:
     className: TMP_TextSelector_A
   - hash:
       serializedVersion: 2
-      Hash: f7b321cd0879c4337638f64ad5afcfe9
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: LaserController
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
@@ -410,6 +414,12 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
+      Hash: 49101319b21043357cb80c5aba043e1d
+    assemblyName: Unity.Recorder.dll
+    namespaceName: UnityEngine.Recorder
+    className: RecorderBindings
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
@@ -422,7 +432,7 @@ ScriptsOnlyBuild:
     className: VertexShakeA
   - hash:
       serializedVersion: 2
-      Hash: 2ed437594e6b4df7694d41690735d274
+      Hash: b588a3805738fc48770a4b719616c73b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PaddleController
@@ -498,6 +508,18 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: PlayerQuitHandler
+  - hash:
+      serializedVersion: 2
+      Hash: 704dcd31abc789439bc3f3cd10b58c2b
+    assemblyName: DOTween.dll
+    namespaceName: DG.Tweening.Core
+    className: DOTweenComponent
+  - hash:
+      serializedVersion: 2
+      Hash: 23206d8cacf2b6e30fd52e948d6c73f5
+    assemblyName: DOTween.dll
+    namespaceName: DG.Tweening.Core
+    className: DOTweenSettings
   - hash:
       serializedVersion: 2
       Hash: 2c0a467ee7950c941c2dd8ef6b974a7e
@@ -1082,7 +1104,7 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
-      Hash: 9054a7c9fc9772702d724192a84ee3dc
+      Hash: 79005734434a9eab3b04d3746cd67723
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -1221,4 +1243,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
-  playerPath: C:/Users/seval/AppData/Roaming/Microsoft/Windows/Network Shortcuts/apkLASER.apk
+  playerPath: C:/Users/seval/AppData/Roaming/Microsoft/Windows/Network Shortcuts/laserGameandroid1.apk

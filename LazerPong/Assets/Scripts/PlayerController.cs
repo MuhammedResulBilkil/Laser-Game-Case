@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
     public float speed;
     public float jumpForce;
+    public bool isJumping;
+   
    
     #endregion
     #region Serialize
@@ -24,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private GameObject Coin;
     private Vector3 targetCoinPosition;
     private float durationForCollectCoin;
+    private Touch touch;
+    private float speedModifier;
     #endregion
 
     #region Delegate Method
@@ -40,8 +44,9 @@ public class PlayerController : MonoBehaviour
         }
         //reach rigidbody component.
         rb_ = GetComponent<Rigidbody>();
-        targetCoinPosition = new Vector3(56.90f, 11.1f, -4.76f);
+        targetCoinPosition = new Vector3(59.0f, 5.16f, -2.1f);
         durationForCollectCoin = 5;
+        speedModifier = 0.8f;
         //this timer will use as a boolean variable.
         timer_ = 0;
     }
@@ -53,6 +58,7 @@ public class PlayerController : MonoBehaviour
         PlayerActionsMethod();
         if(isCollectCoin)
         {
+          
             //if isCollectionCoin is true , so change this coin position(animation to move coin to score text )
             Coin.transform.position = Vector3.Lerp(Coin.transform.position, targetCoinPosition, durationForCollectCoin * Time.deltaTime);
         }
@@ -99,23 +105,53 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement()
     {
-        float mH = Input.GetAxis(Constants.HORIZONTAL);
-        float mV = Input.GetAxis(Constants.VERTICAL);
+   
       
-        rb_.velocity = new Vector3(mH * speed, rb_.velocity.y, mV * speed);
+        if(Input.touchCount >0)
+        {
+            touch = Input.GetTouch(0);
+            if(touch.phase == TouchPhase.Moved)
+            {
+                Vector3 targetPos = new Vector3(transform.position.x + touch.deltaPosition.x ,
+                    transform.position.y,
+                    transform.position.z + touch.deltaPosition.y );
+                transform.position = Vector3.Lerp(transform.position, targetPos, speedModifier* Time.deltaTime);
+            }
+            
+           
+            
+            
+        }
+
+     
+
+        
+        //float mH = Input.GetAxis(Constants.HORIZONTAL);
+        //float mV = Input.GetAxis(Constants.VERTICAL);
+       // rb_.velocity = new Vector3(mH * speed, rb_.velocity.y, mV * speed);
+
+
         float xPos = transform.position.x;
         float zPos = transform.position.z;
         //limits of area that player can walk.
-        transform.position = new Vector3(Mathf.Clamp(xPos, 63, 71), transform.position.y, Mathf.Clamp(zPos, -15, -1));
-    }
+         transform.position = new Vector3(Mathf.Clamp(xPos, 63, 71), transform.position.y, Mathf.Clamp(zPos, -15, -1));
+
+       
+        
+           
+        
+    
+}
 
     void PlayerJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (isJumping && isGrounded)
         {
             rb_.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
             //make sure player can not jump in air.
             isGrounded = false;
+            isJumping = false;
+            
         }
 
        
@@ -136,11 +172,12 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        //if player touch the laser , player lose game.
-       if(other.gameObject.CompareTag(Constants.LASER_TAG))
+        //if player touch the laser or ball, player loses game.
+       if(other.gameObject.CompareTag(Constants.LASER_TAG) )
         {
             UIManager.instance.LoseGame();
         }
+
        //if player touch the coin , add score then move the coin to score text area(animation codes), then deactivate coin because we ' r gonna use this coin again.
        // I didnt want to use Instantiate-Destroy circle. So if i touch the coin , coin will be deactivate then it will activate another position .
        //But this position have to be in Player area.
@@ -161,7 +198,11 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
+        if(collision.gameObject.CompareTag(Constants.BALL_TAG))
+        {
 
+            UIManager.instance.LoseGame();
+        }
        
     }
 

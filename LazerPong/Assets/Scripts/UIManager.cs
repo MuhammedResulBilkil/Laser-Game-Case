@@ -116,6 +116,10 @@ public class UIManager : MonoBehaviour
         panel.SetActive(activeOrDeactive);
     }
 
+    public void Jump()
+    {
+        PlayerController.instance.isJumping = true;
+    }
    
 
     void LoadHighScore()

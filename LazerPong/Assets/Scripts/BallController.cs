@@ -75,10 +75,7 @@ public class BallController : MonoBehaviour
             IgnoreCollisionMethod(collision.gameObject);
         }
 
-        if (collision.gameObject.CompareTag(Constants.PLAYER_TAG))
-        {
-            IgnoreCollisionMethod(collision.gameObject);
-        }
+        
 
         
     }
