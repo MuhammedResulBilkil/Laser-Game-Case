@@ -119,6 +119,7 @@ public class UIManager : MonoBehaviour
     public void Jump()
     {
         PlayerController.instance.isJumping = true;
+       
     }
    
 

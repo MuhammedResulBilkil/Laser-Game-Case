@@ -14,20 +14,24 @@ public class PlayerController : MonoBehaviour
    
     #endregion
     #region Serialize
-    [SerializeField] Transform laserTransform;
-    
+    [SerializeField] private Transform laserTransform;
+    [SerializeField] private FixedJoystick joyStick;
+    [SerializeField] private Animator anim;
+
+
     #endregion
     #region References
-   
+
     private float timer_;
     private Rigidbody rb_;
+  
     private bool isCollectCoin = false;
     private bool isGrounded = false;
     private GameObject Coin;
     private Vector3 targetCoinPosition;
     private float durationForCollectCoin;
     private Touch touch;
-    private float speedModifier;
+ 
     #endregion
 
     #region Delegate Method
@@ -44,9 +48,10 @@ public class PlayerController : MonoBehaviour
         }
         //reach rigidbody component.
         rb_ = GetComponent<Rigidbody>();
-        targetCoinPosition = new Vector3(59.0f, 5.16f, -2.1f);
+        anim = GetComponent<Animator>();
+        targetCoinPosition = new Vector3(60.26f, 13.3f, -11);
         durationForCollectCoin = 5;
-        speedModifier = 0.8f;
+      
         //this timer will use as a boolean variable.
         timer_ = 0;
     }
@@ -56,14 +61,19 @@ public class PlayerController : MonoBehaviour
     {
 
         PlayerActionsMethod();
-        if(isCollectCoin)
+        CoinAnimation();
+
+
+    }
+
+    private void CoinAnimation()
+    {
+        if (isCollectCoin)
         {
-          
+
             //if isCollectionCoin is true , so change this coin position(animation to move coin to score text )
             Coin.transform.position = Vector3.Lerp(Coin.transform.position, targetCoinPosition, durationForCollectCoin * Time.deltaTime);
         }
-
-
     }
     public void PlayerActionsMethod()
     {
@@ -102,56 +112,45 @@ public class PlayerController : MonoBehaviour
     {
         playerActions -= method;
     }
-
+ 
     void PlayerMovement()
     {
-   
-      
-        if(Input.touchCount >0)
+
+        rb_.velocity = new Vector3(joyStick.Horizontal * speed, rb_.velocity.y, joyStick.Vertical * speed);
+        if(joyStick.Horizontal !=0 || joyStick.Vertical !=0)
         {
-            touch = Input.GetTouch(0);
-            if(touch.phase == TouchPhase.Moved)
-            {
-                Vector3 targetPos = new Vector3(transform.position.x + touch.deltaPosition.x ,
-                    transform.position.y,
-                    transform.position.z + touch.deltaPosition.y );
-                transform.position = Vector3.Lerp(transform.position, targetPos, speedModifier* Time.deltaTime);
-            }
-            
-           
-            
-            
+            transform.rotation = Quaternion.LookRotation(rb_.velocity);
+            anim.SetBool(Constants.RUNNING_ANIM, true);
+        }
+        else
+        {
+            anim.SetBool(Constants.RUNNING_ANIM, false);
         }
 
-     
-
-        
-        //float mH = Input.GetAxis(Constants.HORIZONTAL);
-        //float mV = Input.GetAxis(Constants.VERTICAL);
-       // rb_.velocity = new Vector3(mH * speed, rb_.velocity.y, mV * speed);
-
-
-        float xPos = transform.position.x;
-        float zPos = transform.position.z;
+         float xPos = transform.position.x;
+         float zPos = transform.position.z;
         //limits of area that player can walk.
-         transform.position = new Vector3(Mathf.Clamp(xPos, 63, 71), transform.position.y, Mathf.Clamp(zPos, -15, -1));
+          transform.position = new Vector3(Mathf.Clamp(xPos, 63, 71), transform.position.y, Mathf.Clamp(zPos, -15, -1));
 
-       
-        
-           
-        
-    
-}
+    }
 
     void PlayerJump()
     {
         if (isJumping && isGrounded)
         {
             rb_.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+
+            //sound effect for jump
+            PlayAnimationAndSoundForJump();
             //make sure player can not jump in air.
             isGrounded = false;
             isJumping = false;
             
+        }
+
+        else
+        {
+            anim.SetBool(Constants.JUMPING_ANIM, false);
         }
 
        
@@ -175,7 +174,12 @@ public class PlayerController : MonoBehaviour
         //if player touch the laser or ball, player loses game.
        if(other.gameObject.CompareTag(Constants.LASER_TAG) )
         {
-            UIManager.instance.LoseGame();
+            anim.SetBool(Constants.DEAD_ANIM, true);
+            PlayAnimationAndSoundForDie();
+            //wait and game over(we are waiting for die animaton finished)
+            StartCoroutine(WaitForDeadAnimationFinished(1.7f));
+           
+           
         }
 
        //if player touch the coin , add score then move the coin to score text area(animation codes), then deactivate coin because we ' r gonna use this coin again.
@@ -183,6 +187,7 @@ public class PlayerController : MonoBehaviour
        //But this position have to be in Player area.
         if (other.gameObject.CompareTag(Constants.COIN_TAG))
         {
+            PlaySoundForCollectCoins();
             isCollectCoin = true;
             Coin = other.gameObject;
             StartCoroutine(WaitAndDeactivateCoin(1));
@@ -200,15 +205,36 @@ public class PlayerController : MonoBehaviour
         }
         if(collision.gameObject.CompareTag(Constants.BALL_TAG))
         {
+           
+            PlayAnimationAndSoundForDie();          
+            StartCoroutine(WaitForDeadAnimationFinished(1.7f));
 
-            UIManager.instance.LoseGame();
+
         }
        
     }
 
 
+   
 
-    
+    private void PlaySoundForCollectCoins()
+    {
+        SoundEffectManager.instance.PlayAudioClip(SoundEffectManager.instance.clips[0]);
+       
+    }
+    private void PlayAnimationAndSoundForJump()
+    {
+        //animation for jump
+        anim.SetBool(Constants.JUMPING_ANIM, true);
+        SoundEffectManager.instance.PlayAudioClip(SoundEffectManager.instance.clips[1]);
+    }
+    private void PlayAnimationAndSoundForDie()
+    {
+        anim.SetBool(Constants.DEAD_ANIM, true);
+        SoundEffectManager.instance.PlayAudioClip(SoundEffectManager.instance.clips[2]);
+        //if we die and laser touch us again , we have to prevent the sound effect for die.
+        SoundEffectManager.instance.isSoundOff = true;
+    }
 
 
     private IEnumerator WaitAndDeactivateCoin(float waitDuration)
@@ -231,6 +257,15 @@ public class PlayerController : MonoBehaviour
         Coin.transform.position = new Vector3(randomXPos, randomYPos, randomZPos);
         Coin.SetActive(true);
 
+
+    }
+    private IEnumerator WaitForDeadAnimationFinished(float waitDuration)
+    {
+        yield return new WaitForSeconds(waitDuration);
+        
+       
+        //after die animation finished, game will be over.
+        UIManager.instance.LoseGame();
 
     }
 }

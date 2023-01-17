@@ -12,5 +12,7 @@ public class Constants : MonoBehaviour
     public const string BALL_TAG = "ball";
     public const string PLAYER_TAG = "Player";
     public const string COIN_TAG = "coin";
-
+    public const string RUNNING_ANIM = "isRunning";
+    public const string JUMPING_ANIM = "isJumping";
+    public const string DEAD_ANIM = "isDead";
 }
