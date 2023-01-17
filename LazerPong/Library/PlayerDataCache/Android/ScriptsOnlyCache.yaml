@@ -133,47 +133,47 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1576}
     - Class: 114
-      Script: {instanceID: 2256}
+      Script: {instanceID: 2160}
     - Class: 114
-      Script: {instanceID: 2390}
+      Script: {instanceID: 2262}
     - Class: 114
-      Script: {instanceID: 2708}
+      Script: {instanceID: 2396}
     - Class: 114
-      Script: {instanceID: 2942}
+      Script: {instanceID: 2714}
     - Class: 114
-      Script: {instanceID: 3206}
+      Script: {instanceID: 2948}
     - Class: 114
-      Script: {instanceID: 3252}
+      Script: {instanceID: 3212}
     - Class: 114
-      Script: {instanceID: 3614}
+      Script: {instanceID: 3258}
     - Class: 114
-      Script: {instanceID: 4092}
+      Script: {instanceID: 3620}
     - Class: 114
-      Script: {instanceID: 4252}
+      Script: {instanceID: 4098}
     - Class: 114
-      Script: {instanceID: 4370}
+      Script: {instanceID: 4258}
     - Class: 114
-      Script: {instanceID: 4664}
+      Script: {instanceID: 4376}
     - Class: 114
-      Script: {instanceID: 5464}
+      Script: {instanceID: 4672}
     - Class: 114
-      Script: {instanceID: 6100}
+      Script: {instanceID: 5480}
     - Class: 114
-      Script: {instanceID: 6180}
+      Script: {instanceID: 6116}
     - Class: 114
-      Script: {instanceID: 6262}
+      Script: {instanceID: 6196}
     - Class: 114
-      Script: {instanceID: 6628}
+      Script: {instanceID: 6276}
     - Class: 114
-      Script: {instanceID: 7476}
+      Script: {instanceID: 6280}
     - Class: 114
-      Script: {instanceID: 7658}
+      Script: {instanceID: 6648}
     - Class: 114
-      Script: {instanceID: 7768}
+      Script: {instanceID: 7500}
     - Class: 114
-      Script: {instanceID: 32438}
+      Script: {instanceID: 7682}
     - Class: 114
-      Script: {instanceID: 107330}
+      Script: {instanceID: 7792}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -273,10 +273,22 @@ ScriptsOnlyBuild:
     className: SimpleScript
   - hash:
       serializedVersion: 2
+      Hash: ce669872a2be11bc686ea22961d8a3bb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FixedJoystick
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnTriggerEnterMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 9dac16f3efc511835ac976dfae55f580
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: VariableJoystick
   - hash:
       serializedVersion: 2
       Hash: 800c50acba124432abb4cf0d47202e06
@@ -693,6 +705,12 @@ ScriptsOnlyBuild:
     className: DictionaryAsset
   - hash:
       serializedVersion: 2
+      Hash: 528e9858840cb8370d93939fff6b42d9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: JoystickPlayerExample
+  - hash:
+      serializedVersion: 2
       Hash: 6980e81ddc615a861309d2d659cc3760
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -783,6 +801,12 @@ ScriptsOnlyBuild:
     className: UnityOnEndDragMessageListener
   - hash:
       serializedVersion: 2
+      Hash: 824e8d4cb47ffd88ddf959dbd4526585
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DynamicJoystick
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
@@ -829,6 +853,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: HorizontalLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: ce669872a2be11bc686ea22961d8a3bb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Joystick
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -933,6 +963,12 @@ ScriptsOnlyBuild:
     className: AspectRatioFitter
   - hash:
       serializedVersion: 2
+      Hash: 31a6b556bd9c754306fed2f5049c4850
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SoundEffectManager
+  - hash:
+      serializedVersion: 2
       Hash: 760787567e1b60d64a3e421ab83ee14a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -949,6 +985,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
     className: Benchmark03
+  - hash:
+      serializedVersion: 2
+      Hash: 9e27f44bbf48228f203a37254d40f8ae
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: JoystickSetterExample
   - hash:
       serializedVersion: 2
       Hash: e09e8bebc0fcd32bb8af1287a6b44816
@@ -1087,6 +1129,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: EventTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: ce669872a2be11bc686ea22961d8a3bb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FloatingJoystick
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1255,55 +1303,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
-  - hash:
-      serializedVersion: 2
-      Hash: 824e8d4cb47ffd88ddf959dbd4526585
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: DynamicJoystick
-  - hash:
-      serializedVersion: 2
-      Hash: ce669872a2be11bc686ea22961d8a3bb
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: FloatingJoystick
-  - hash:
-      serializedVersion: 2
-      Hash: 9dac16f3efc511835ac976dfae55f580
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: VariableJoystick
-  - hash:
-      serializedVersion: 2
-      Hash: ce669872a2be11bc686ea22961d8a3bb
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Joystick
-  - hash:
-      serializedVersion: 2
-      Hash: 528e9858840cb8370d93939fff6b42d9
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: JoystickPlayerExample
-  - hash:
-      serializedVersion: 2
-      Hash: 9e27f44bbf48228f203a37254d40f8ae
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: JoystickSetterExample
-  - hash:
-      serializedVersion: 2
-      Hash: ce669872a2be11bc686ea22961d8a3bb
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: FixedJoystick
-  - hash:
-      serializedVersion: 2
-      Hash: 31a6b556bd9c754306fed2f5049c4850
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SoundEffectManager
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
-  playerPath: C:/Users/seval/AppData/Roaming/Microsoft/Windows/Network Shortcuts/CaseGame.apk
+  playerPath: C:/Users/seval/AppData/Roaming/Microsoft/Windows/Network Shortcuts/laserGameApk3.apk

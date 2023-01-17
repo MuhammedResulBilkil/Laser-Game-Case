@@ -32,7 +32,7 @@ public class PaddleController : MonoBehaviour
        distance_ = BallTransform.position.x - transform.position.x;
      
         //if distance >20 and didnt touch the paddle yet, paddle can move.
-       if ( Mathf.Abs(distance_) <15 && !isTouchedPaddle)
+       if ( Mathf.Abs(distance_) <20 && !isTouchedPaddle)
         {
             Vector3 targetPos = new Vector3(transform.position.x, transform.position.y, BallTransform.position.z);
             float duration =1f;

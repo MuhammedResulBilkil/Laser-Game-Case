@@ -116,9 +116,13 @@ public class PlayerController : MonoBehaviour
     void PlayerMovement()
     {
 
-        rb_.velocity = new Vector3(joyStick.Horizontal * speed, rb_.velocity.y, joyStick.Vertical * speed);
-        if(joyStick.Horizontal !=0 || joyStick.Vertical !=0)
-        {
+      
+        float limit = 0.3f; 
+       
+        //dont rotate if horizontal or vertical number is 0.1,0.2 etc.           
+        if(Math.Abs(joyStick.Horizontal) >= limit || Math.Abs(joyStick.Vertical) >= limit)
+        { 
+            rb_.velocity = new Vector3(joyStick.Horizontal * speed, rb_.velocity.y, joyStick.Vertical * speed);           
             transform.rotation = Quaternion.LookRotation(rb_.velocity);
             anim.SetBool(Constants.RUNNING_ANIM, true);
         }
@@ -140,8 +144,10 @@ public class PlayerController : MonoBehaviour
         {
             rb_.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
 
-            //sound effect for jump
-            PlayAnimationAndSoundForJump();
+            
+            //animation for jump
+            anim.SetBool(Constants.JUMPING_ANIM, true);
+            PlaySoundForJump();
             //make sure player can not jump in air.
             isGrounded = false;
             isJumping = false;
@@ -174,8 +180,9 @@ public class PlayerController : MonoBehaviour
         //if player touch the laser or ball, player loses game.
        if(other.gameObject.CompareTag(Constants.LASER_TAG) )
         {
+            //animation for die
             anim.SetBool(Constants.DEAD_ANIM, true);
-            PlayAnimationAndSoundForDie();
+            PlaySoundForDie();
             //wait and game over(we are waiting for die animaton finished)
             StartCoroutine(WaitForDeadAnimationFinished(1.7f));
            
@@ -205,8 +212,8 @@ public class PlayerController : MonoBehaviour
         }
         if(collision.gameObject.CompareTag(Constants.BALL_TAG))
         {
-           
-            PlayAnimationAndSoundForDie();          
+            anim.SetBool(Constants.DEAD_ANIM, true);
+            PlaySoundForDie();          
             StartCoroutine(WaitForDeadAnimationFinished(1.7f));
 
 
@@ -222,15 +229,14 @@ public class PlayerController : MonoBehaviour
         SoundEffectManager.instance.PlayAudioClip(SoundEffectManager.instance.clips[0]);
        
     }
-    private void PlayAnimationAndSoundForJump()
+    private void PlaySoundForJump()
     {
-        //animation for jump
-        anim.SetBool(Constants.JUMPING_ANIM, true);
+       
         SoundEffectManager.instance.PlayAudioClip(SoundEffectManager.instance.clips[1]);
     }
-    private void PlayAnimationAndSoundForDie()
+    private void PlaySoundForDie()
     {
-        anim.SetBool(Constants.DEAD_ANIM, true);
+       
         SoundEffectManager.instance.PlayAudioClip(SoundEffectManager.instance.clips[2]);
         //if we die and laser touch us again , we have to prevent the sound effect for die.
         SoundEffectManager.instance.isSoundOff = true;
@@ -265,7 +271,7 @@ public class PlayerController : MonoBehaviour
         
        
         //after die animation finished, game will be over.
-        UIManager.instance.LoseGame();
+       UIManager.instance.LoseGame();
 
     }
 }
