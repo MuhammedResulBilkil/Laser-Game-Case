@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17654563, g: 0.22097692, b: 0.30328715, a: 1}
+  m_IndirectSpecularColor: {r: 0.17654522, g: 0.2209763, b: 0.30328697, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6043,7 +6043,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -6061,14 +6061,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.66469985, y: -0.32900038, z: 0.5270212, w: 0.4149476}
-  m_LocalPosition: {x: 67.36, y: 9.97, z: -5.21}
+  m_LocalRotation: {x: 0.82732993, y: -0.116960295, z: 0.18735741, w: 0.5164714}
+  m_LocalPosition: {x: 67.36, y: 8.7, z: -8.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 116.05, y: -76.82001, z: 0}
+  m_LocalEulerAnglesHint: {x: 116.05, y: -25.52, z: 0}
 --- !u!1 &724561839 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a41ae04f6b4e0a34eaecc0c452b3c4f5, type: 3}
@@ -6339,6 +6339,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2943923492859624634, guid: a41ae04f6b4e0a34eaecc0c452b3c4f5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d7192a206ba80234e9e9a2560716625d, type: 2}
     - target: {fileID: 919132149155446097, guid: a41ae04f6b4e0a34eaecc0c452b3c4f5, type: 3}
       propertyPath: m_Name
       value: Player
@@ -6604,14 +6608,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.22270401, y: -0, z: -0, w: 0.9748862}
-  m_LocalPosition: {x: 67.24, y: 13.2, z: -25.95}
+  m_LocalRotation: {x: 0.29737478, y: 0, z: 0, w: 0.95476085}
+  m_LocalPosition: {x: 67.24, y: 13.3, z: -23.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 25.736, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 34.6, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6694,7 +6698,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58edec5447f7a8845941a50ec660e8d3, type: 2}
+  - {fileID: 2100000, guid: 7943be8f14bf620439377a61014df5d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6942,7 +6946,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c3ac8a1099ba4a045961b03eeb759485, type: 2}
+  - {fileID: 2100000, guid: d1cd4e374989edf4a9cdf2626ff507da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7228,7 +7232,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bed953fe9e895c84496f011986d81114, type: 2}
+  - {fileID: 2100000, guid: 7943be8f14bf620439377a61014df5d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7935,7 +7939,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -16.200012, y: 38.555054}
+  m_AnchoredPosition: {x: -16.199951, y: 38.555054}
   m_SizeDelta: {x: 32.399937, y: 77.10993}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1660999530
@@ -8236,7 +8240,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f6a0c3f92f435a7408f77befb050a786, type: 2}
+  - {fileID: 2100000, guid: 7943be8f14bf620439377a61014df5d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

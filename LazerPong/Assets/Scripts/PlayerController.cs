@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         //reach rigidbody component.
         rb_ = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        targetCoinPosition = new Vector3(60.26f, 13.3f, -11);
+        targetCoinPosition = new Vector3(57.71f, 10.65f, -4.76f);
         durationForCollectCoin = 5;
       
         //this timer will use as a boolean variable.
